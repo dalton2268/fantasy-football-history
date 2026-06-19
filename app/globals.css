@@ -101,6 +101,10 @@ a {
   text-transform: uppercase;
 }
 
+.menu-toggle {
+  display: none;
+}
+
 .site-nav {
   display: flex;
   flex-wrap: wrap;
@@ -1509,22 +1513,84 @@ h2 {
 
 @media (max-width: 640px) {
   .site-header {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: min(100% - 24px, 1200px);
+    gap: 12px;
+  }
+
+  .site-brand {
+    flex: 1;
+  }
+
+  .menu-toggle {
+    display: inline-grid;
+    gap: 4px;
+    place-content: center;
+    width: 42px;
+    height: 38px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(8, 38, 29, 0.1);
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--accent-dark);
+    border-radius: 999px;
   }
 
   .site-nav {
-    justify-content: flex-start;
+    display: none;
+    flex-basis: 100%;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    justify-content: stretch;
+    max-height: calc(100vh - 86px);
+    overflow-y: auto;
+    padding: 10px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 244, 0.9)),
+      rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    box-shadow: 0 18px 50px rgba(8, 38, 29, 0.14);
+  }
+
+  .site-nav.is-open {
+    display: grid;
+  }
+
+  .nav-item {
+    display: grid;
+    gap: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+
+  .nav-item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .site-nav a {
+    padding: 10px;
+    color: var(--foreground);
+    font-size: 0.95rem;
   }
 
   .nav-dropdown {
     position: static;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    gap: 2px;
     width: auto;
     min-width: 0;
-    padding: 0;
+    padding: 0 0 0 10px;
     background: transparent;
     border: 0;
     box-shadow: none;
@@ -1534,7 +1600,8 @@ h2 {
   }
 
   .nav-dropdown a {
-    font-size: 0.82rem;
+    color: var(--muted);
+    font-size: 0.86rem;
   }
 
   .page-shell {
