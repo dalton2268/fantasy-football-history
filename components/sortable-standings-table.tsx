@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { TeamIdentity } from "@/components/team-identity";
 import { formatPct, formatPoints } from "@/lib/format";
 import type { AllTimeStanding } from "@/lib/sleeper";
-import { TeamIdentity } from "@/components/team-identity";
 
 type SortKey =
   | "owner"
@@ -111,9 +111,9 @@ export function SortableStandingsTable({
             <span aria-hidden="true">
               {sort.key === column.key
                 ? sort.direction === "asc"
-                  ? "↑"
-                  : "↓"
-                : "↕"}
+                  ? "\u2191"
+                  : "\u2193"
+                : "\u2195"}
             </span>
           </button>
         ))}
