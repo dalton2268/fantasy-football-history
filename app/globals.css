@@ -2018,30 +2018,74 @@ h2 {
   }
 
   .h2h-game-row {
-    grid-template-columns: minmax(82px, 1fr) 34px minmax(46px, 0.7fr) minmax(46px, 0.7fr) minmax(48px, 0.75fr);
-    gap: 6px;
+    grid-template-areas:
+      "date result margin"
+      "for against margin";
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 54px;
+    gap: 7px 10px;
     align-items: center;
-    padding: 10px;
-    font-size: 0.78rem;
+    padding: 11px 10px;
+    font-size: 0.84rem;
   }
 
   .h2h-game-row span {
     display: block;
-    text-align: right;
-  }
-
-  .h2h-game-row span:first-child {
     text-align: left;
   }
 
-  .h2h-game-row span::before {
-    content: none;
+  .h2h-game-row span:nth-child(1) {
+    grid-area: date;
+  }
+
+  .h2h-game-row span:nth-child(2) {
+    grid-area: result;
+    justify-self: start;
+  }
+
+  .h2h-game-row span:nth-child(3) {
+    grid-area: for;
+  }
+
+  .h2h-game-row span:nth-child(4) {
+    grid-area: against;
+  }
+
+  .h2h-game-row span:nth-child(5) {
+    grid-area: margin;
+    align-self: stretch;
+    display: grid;
+    align-content: center;
+    padding-left: 8px;
+    border-left: 1px solid var(--panel-border);
+    text-align: right;
+  }
+
+  .h2h-game-row span:nth-child(3)::before {
+    content: "For";
+  }
+
+  .h2h-game-row span:nth-child(4)::before {
+    content: "Against";
+  }
+
+  .h2h-game-row span:nth-child(5)::before {
+    content: "Margin";
+  }
+
+  .h2h-game-row span:nth-child(n + 3)::before {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--muted);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   .result-pill {
-    min-width: 28px;
-    padding: 2px 6px;
-    font-size: 0.68rem;
+    min-width: 30px;
+    padding: 2px 7px;
+    font-size: 0.7rem;
   }
 
   .h2h-header-row {
