@@ -2013,6 +2013,37 @@ h2 {
     margin: 0 8px 10px;
   }
 
+  .h2h-game-head {
+    display: none;
+  }
+
+  .h2h-game-row {
+    grid-template-columns: minmax(82px, 1fr) 34px minmax(46px, 0.7fr) minmax(46px, 0.7fr) minmax(48px, 0.75fr);
+    gap: 6px;
+    align-items: center;
+    padding: 10px;
+    font-size: 0.78rem;
+  }
+
+  .h2h-game-row span {
+    display: block;
+    text-align: right;
+  }
+
+  .h2h-game-row span:first-child {
+    text-align: left;
+  }
+
+  .h2h-game-row span::before {
+    content: none;
+  }
+
+  .result-pill {
+    min-width: 28px;
+    padding: 2px 6px;
+    font-size: 0.68rem;
+  }
+
   .h2h-header-row {
     display: none;
   }
