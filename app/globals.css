@@ -2005,6 +2005,92 @@ h2 {
     text-align: left;
   }
 
+  .h2h-results {
+    border-radius: 8px;
+  }
+
+  .h2h-games {
+    margin: 0 8px 10px;
+  }
+
+  .h2h-game-head {
+    display: grid;
+  }
+
+  .h2h-game-row {
+    grid-template-columns: minmax(78px, 1fr) 38px 58px 58px 58px;
+    gap: 6px;
+    padding: 9px 10px;
+    font-size: 0.82rem;
+  }
+
+  .h2h-game-row span {
+    display: block;
+    text-align: right;
+  }
+
+  .h2h-game-row span:first-child {
+    text-align: left;
+  }
+
+  .result-pill {
+    min-width: 30px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+  }
+
+  .h2h-header-row {
+    display: none;
+  }
+
+  .h2h-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px 10px;
+    padding: 12px;
+  }
+
+  .h2h-summary > .team-identity {
+    flex: 1 0 100%;
+  }
+
+  .h2h-summary span:not(.team-identity) {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    width: auto;
+    padding: 0;
+    color: var(--foreground);
+    border: 0;
+    font-size: 0.78rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .h2h-summary span:not(.team-identity)::before {
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .h2h-summary span:nth-child(2)::before {
+    content: "Rec";
+  }
+
+  .h2h-summary span:nth-child(3)::before {
+    content: "PF";
+  }
+
+  .h2h-summary span:nth-child(4)::before {
+    content: "PA";
+  }
+
+  .h2h-summary span:nth-child(5)::before {
+    content: "G";
+  }
+
   .season-header {
     display: grid;
   }
