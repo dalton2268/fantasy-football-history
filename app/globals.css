@@ -2013,32 +2013,6 @@ h2 {
     margin: 0 8px 10px;
   }
 
-  .h2h-game-head {
-    display: grid;
-  }
-
-  .h2h-game-row {
-    grid-template-columns: minmax(78px, 1fr) 38px 58px 58px 58px;
-    gap: 6px;
-    padding: 9px 10px;
-    font-size: 0.82rem;
-  }
-
-  .h2h-game-row span {
-    display: block;
-    text-align: right;
-  }
-
-  .h2h-game-row span:first-child {
-    text-align: left;
-  }
-
-  .result-pill {
-    min-width: 30px;
-    padding: 2px 6px;
-    font-size: 0.7rem;
-  }
-
   .h2h-header-row {
     display: none;
   }
