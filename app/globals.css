@@ -794,6 +794,37 @@ h2 {
   overflow-wrap: anywhere;
 }
 
+.streak-detail {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+}
+
+.streak-game {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px minmax(112px, auto);
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.streak-game:last-child {
+  border-bottom: 0;
+}
+
+.streak-game small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+}
+
+.streak-game > strong {
+  text-align: right;
+}
+
 .matchup-title {
   display: grid;
   gap: 8px;
@@ -1665,6 +1696,15 @@ h2 {
   .record-detail-grid,
   .record-matchup-detail {
     grid-template-columns: 1fr;
+  }
+
+  .streak-game {
+    grid-template-columns: minmax(0, 1fr) 40px;
+  }
+
+  .streak-game > strong {
+    grid-column: 1 / -1;
+    text-align: left;
   }
 
   .span-2,

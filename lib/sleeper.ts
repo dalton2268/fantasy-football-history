@@ -204,6 +204,27 @@ export type MatchupRecord = {
   margin: number;
 };
 
+export type StreakGame = {
+  season: string;
+  week: number;
+  result: "W" | "L" | "T";
+  opponentOwnerName: string;
+  opponentTeamName: string;
+  pointsFor: number;
+  pointsAgainst: number;
+};
+
+export type StreakRecord = {
+  ownerId: string;
+  ownerName: string;
+  teamName: string;
+  season: string;
+  length: number;
+  startWeek: number;
+  endWeek: number;
+  games: StreakGame[];
+};
+
 export type RegularSeasonFinishTeam = {
   rank: number;
   rosterId: number;
@@ -359,6 +380,8 @@ export type LeagueArchive = {
     lowestWeek?: WeeklyScore;
     biggestBlowout?: MatchupRecord;
     closestMatchup?: MatchupRecord;
+    longestWinningStreak?: StreakRecord;
+    longestLosingStreak?: StreakRecord;
   };
 };
 
@@ -877,6 +900,113 @@ function getRegularSeasonFinishes(
   });
 }
 
+function getStreakRecords(matchups: MatchupRecord[]) {
+  const gamesBySeasonOwner = new Map<string, StreakGame[]>();
+  const teamBySeasonOwner = new Map<
+    string,
+    {
+      ownerId: string;
+      ownerName: string;
+      teamName: string;
+      season: string;
+    }
+  >();
+
+  function addGame(team: WeeklyScore, opponent: WeeklyScore) {
+    const result =
+      team.points > opponent.points
+        ? "W"
+        : team.points < opponent.points
+          ? "L"
+          : "T";
+    const key = `${team.season}-${team.ownerId}`;
+
+    teamBySeasonOwner.set(key, {
+      ownerId: team.ownerId,
+      ownerName: team.ownerName,
+      teamName: team.teamName,
+      season: team.season,
+    });
+    gamesBySeasonOwner.set(key, [
+      ...(gamesBySeasonOwner.get(key) ?? []),
+      {
+        season: team.season,
+        week: team.week,
+        result,
+        opponentOwnerName: opponent.ownerName,
+        opponentTeamName: opponent.teamName,
+        pointsFor: team.points,
+        pointsAgainst: opponent.points,
+      },
+    ]);
+  }
+
+  function betterStreak(
+    current: StreakRecord | undefined,
+    candidate: StreakRecord,
+  ) {
+    if (!current) {
+      return candidate;
+    }
+
+    if (candidate.length !== current.length) {
+      return candidate.length > current.length ? candidate : current;
+    }
+
+    if (Number(candidate.season) !== Number(current.season)) {
+      return Number(candidate.season) > Number(current.season)
+        ? candidate
+        : current;
+    }
+
+    return candidate.endWeek > current.endWeek ? candidate : current;
+  }
+
+  function longestForResult(result: "W" | "L") {
+    let best: StreakRecord | undefined;
+
+    for (const [key, games] of gamesBySeasonOwner.entries()) {
+      const team = teamBySeasonOwner.get(key);
+
+      if (!team) {
+        continue;
+      }
+
+      let currentGames: StreakGame[] = [];
+
+      for (const game of games.toSorted((a, b) => a.week - b.week)) {
+        if (game.result === result) {
+          currentGames.push(game);
+        } else {
+          currentGames = [];
+        }
+
+        if (currentGames.length) {
+          best = betterStreak(best, {
+            ...team,
+            length: currentGames.length,
+            startWeek: currentGames[0].week,
+            endWeek: currentGames[currentGames.length - 1].week,
+            games: currentGames.map((entry) => ({ ...entry })),
+          });
+        }
+      }
+    }
+
+    return best;
+  }
+
+  for (const matchup of matchups) {
+    addGame(matchup.winner, matchup.loser);
+    addGame(matchup.loser, matchup.winner);
+  }
+
+  return {
+    longestWinningStreak: longestForResult("W"),
+    longestLosingStreak: longestForResult("L"),
+  };
+}
+
 function getRecords(
   seasons: SeasonSnapshot[],
   weeklyScores: WeeklyScore[],
@@ -888,6 +1018,7 @@ function getRecords(
   );
   const highestWeek = weeklyScores.toSorted((a, b) => b.points - a.points)[0];
   const lowestWeek = weeklyScores.toSorted((a, b) => a.points - b.points)[0];
+  const streakRecords = getStreakRecords(matchups);
 
   function enrichScore(score?: WeeklyScore) {
     if (!score || !players) {
@@ -941,6 +1072,8 @@ function getRecords(
     closestMatchup: enrichMatchup(
       matchups.toSorted((a, b) => a.margin - b.margin)[0],
     ),
+    longestWinningStreak: streakRecords.longestWinningStreak,
+    longestLosingStreak: streakRecords.longestLosingStreak,
   };
 }
 

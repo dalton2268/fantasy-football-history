@@ -105,6 +105,37 @@ function LineupColumn({
   );
 }
 
+function StreakDetail({
+  streak,
+}: {
+  streak?: Records["longestWinningStreak"];
+}) {
+  if (!streak?.games.length) {
+    return <p className="empty-detail">No streak games available.</p>;
+  }
+
+  return (
+    <div className="streak-detail">
+      {streak.games.map((game) => (
+        <div className="streak-game" key={`${game.season}-${game.week}`}>
+          <span>
+            <strong>Week {game.week}</strong>
+            <small>
+              vs {game.opponentTeamName} ({game.opponentOwnerName})
+            </small>
+          </span>
+          <span className={`result-pill result-${game.result.toLowerCase()}`}>
+            {game.result}
+          </span>
+          <strong>
+            {formatPoints(game.pointsFor)} - {formatPoints(game.pointsAgainst)}
+          </strong>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function RecordBook({ records }: { records: Records }) {
   return (
     <section className="record-grid">
@@ -188,6 +219,42 @@ export function RecordBook({ records }: { records: Records }) {
         <TeamIdentity
           ownerName={records.lowestWeek?.ownerName}
           teamName={records.lowestWeek?.teamName}
+        />
+      </RecordCard>
+
+      <RecordCard
+        detail={<StreakDetail streak={records.longestWinningStreak} />}
+        eyebrow="Longest winning streak"
+        summary={
+          <>
+            {records.longestWinningStreak?.season}, Weeks{" "}
+            {records.longestWinningStreak?.startWeek}-
+            {records.longestWinningStreak?.endWeek} -{" "}
+            {records.longestWinningStreak?.length} straight wins
+          </>
+        }
+      >
+        <TeamIdentity
+          ownerName={records.longestWinningStreak?.ownerName}
+          teamName={records.longestWinningStreak?.teamName}
+        />
+      </RecordCard>
+
+      <RecordCard
+        detail={<StreakDetail streak={records.longestLosingStreak} />}
+        eyebrow="Longest losing streak"
+        summary={
+          <>
+            {records.longestLosingStreak?.season}, Weeks{" "}
+            {records.longestLosingStreak?.startWeek}-
+            {records.longestLosingStreak?.endWeek} -{" "}
+            {records.longestLosingStreak?.length} straight losses
+          </>
+        }
+      >
+        <TeamIdentity
+          ownerName={records.longestLosingStreak?.ownerName}
+          teamName={records.longestLosingStreak?.teamName}
         />
       </RecordCard>
 
