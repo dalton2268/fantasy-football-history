@@ -1511,6 +1511,10 @@ h2 {
   .trade-detail {
     grid-template-columns: 1fr;
   }
+
+  .trade-active-counts {
+    display: none;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1970,10 +1974,6 @@ h2 {
 
   .trade-summary > span:last-child {
     text-align: left;
-  }
-
-  .trade-active-counts {
-    display: none;
   }
 
   .bracket-board {
