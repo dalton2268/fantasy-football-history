@@ -1972,6 +1972,10 @@ h2 {
     text-align: left;
   }
 
+  .trade-active-counts {
+    display: none;
+  }
+
   .bracket-board {
     grid-auto-flow: row;
     grid-auto-columns: unset;

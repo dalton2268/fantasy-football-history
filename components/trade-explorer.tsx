@@ -158,7 +158,7 @@ export function TradeExplorer({ trades }: { trades: LeagueTrade[] }) {
           </p>
         </div>
 
-        <div className="trade-counts">
+        <div className="trade-counts trade-active-counts">
           <div className="trade-counts-header">
             <span>Season</span>
             <span>Trades</span>
