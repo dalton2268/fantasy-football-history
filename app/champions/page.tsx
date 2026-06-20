@@ -33,6 +33,17 @@ function topStarters(matchup: PlayoffMatchup, rosterId: number) {
   );
 }
 
+function photoClass(teamName?: string) {
+  if (!teamName) {
+    return "champion-photo";
+  }
+
+  return `champion-photo champion-photo-${teamName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")}`;
+}
+
 function championshipParagraph({
   season,
   final,
@@ -136,7 +147,7 @@ export default async function ChampionsPage() {
           return (
             <article className="panel champion-story" key={season.leagueId}>
               {championPhoto ? (
-                <div className="champion-photo">
+                <div className={photoClass(champion?.teamName)}>
                   <Image
                     alt={`${champion?.teamName} championship photo`}
                     fill

@@ -437,6 +437,14 @@ h2 {
   object-fit: cover;
 }
 
+.champion-photo-is-it-in-you img {
+  object-position: 50% 24%;
+}
+
+.champion-photo-peak-male-physique img {
+  object-position: 50% 18%;
+}
+
 .champion-story-header {
   display: flex;
   gap: 18px;
@@ -1695,6 +1703,14 @@ h2 {
     max-width: 100%;
     aspect-ratio: 16 / 10;
     min-height: 220px;
+  }
+
+  .champion-photo-is-it-in-you img {
+    object-position: 50% 20%;
+  }
+
+  .champion-photo-peak-male-physique img {
+    object-position: 50% 14%;
   }
 
   .champion-story-header {
