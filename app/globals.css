@@ -1768,81 +1768,91 @@ h2 {
   }
 
   .wide-table {
-    overflow-x: auto;
-  }
-
-  .wide-table {
     overflow-x: hidden;
   }
 
-  .wide-head.standings-row,
   .wide-head.regular-season-row {
     display: none;
   }
 
-  .standings-row:not(.wide-head) {
-    grid-template-columns: 1fr;
-    min-width: 0;
-    gap: 8px 12px;
-    padding: 16px;
+  .standings-row {
+    grid-template-columns: 150px 58px 54px 62px 36px;
+    gap: 7px;
+    min-width: 390px;
+    padding: 11px 10px;
+    font-size: 0.8rem;
   }
 
-  .standings-row:not(.wide-head) > .team-identity {
-    grid-column: 1 / -1;
-    margin-bottom: 4px;
+  .wide-head.standings-row {
+    display: grid;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
   }
 
-  .standings-row:not(.wide-head) > span:not(.team-identity) {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    min-width: 0;
-    width: 100%;
-    padding: 8px 0;
-    color: var(--foreground);
-    border-top: 1px solid rgba(38, 61, 48, 0.1);
-    font-size: 0.94rem;
-    text-align: right;
+  .wide-table:has(.standings-row) {
+    overflow-x: auto;
   }
 
-  .standings-row:not(.wide-head) > span:not(.team-identity)::before {
-    color: var(--muted);
+  .standings-row .sortable-heading {
+    gap: 3px;
+  }
+
+  .standings-row .sortable-heading span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .standings-row .team-identity strong {
+    font-size: 0.82rem;
+  }
+
+  .standings-row .team-identity small {
     font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
   }
 
-  .standings-row > span:nth-child(2)::before {
-    content: "Seasons";
+  .standings-row > :nth-child(2),
+  .standings-row > :nth-child(3),
+  .standings-row > :nth-child(6),
+  .standings-row > :nth-child(7) {
+    display: none;
   }
 
-  .standings-row > span:nth-child(3)::before {
-    content: "Playoffs";
+  .standings-row > :nth-child(4) {
+    grid-column: 2;
+    grid-row: 1;
   }
 
-  .standings-row > span:nth-child(4)::before {
-    content: "Record";
+  .standings-row > :nth-child(5) {
+    grid-column: 3;
+    grid-row: 1;
   }
 
-  .standings-row > span:nth-child(5)::before {
-    content: "Win %";
+  .standings-row > :nth-child(8) {
+    grid-column: 4;
+    grid-row: 1;
   }
 
-  .standings-row > span:nth-child(6)::before {
-    content: "PF";
+  .standings-row > :nth-child(9) {
+    grid-column: 5;
+    grid-row: 1;
   }
 
-  .standings-row > span:nth-child(7)::before {
-    content: "PA";
+  .standings-row > button:nth-child(3) span:first-child {
+    font-size: 0;
   }
 
-  .standings-row > span:nth-child(8)::before {
-    content: "PPG";
+  .standings-row > button:nth-child(4) span:first-child::after {
+    content: "Rec";
+    font-size: 0.62rem;
   }
 
-  .standings-row > span:nth-child(9)::before {
-    content: "Titles";
+  .standings-row > button:nth-child(9) span:first-child {
+    font-size: 0;
+  }
+
+  .standings-row > button:nth-child(9) span:first-child::after {
+    content: "T";
+    font-size: 0.62rem;
   }
 
   .regular-season-row:not(.wide-head) {
@@ -2050,7 +2060,6 @@ h2 {
     min-width: 0;
   }
 
-  .standings-row:not(.wide-head) > span:not(.team-identity),
   .regular-season-row:not(.wide-head) > span:nth-child(n + 3),
   .h2h-summary span:not(:first-child),
   .h2h-game-row span,
