@@ -18,7 +18,10 @@ export default async function RegularSeasonFinishesPage() {
 
       <section className="season-stack">
         {archive.regularSeasonFinishes.map((season) => (
-          <article className="panel season-panel" key={season.leagueId}>
+          <article
+            className="panel season-panel regular-season-panel"
+            key={season.leagueId}
+          >
             <div className="season-header">
               <div>
                 <p className="eyebrow">{season.leagueName}</p>
@@ -39,12 +42,26 @@ export default async function RegularSeasonFinishesPage() {
               {season.teams.map((team) => (
                 <div className="wide-row regular-season-row" key={team.ownerId}>
                   <strong>{team.rank}</strong>
-                  <TeamIdentity
-                    ownerName={team.ownerName}
-                    teamName={team.teamName}
-                  />
+                  <span className="regular-season-team-cell">
+                    <TeamIdentity
+                      ownerName={team.ownerName}
+                      teamName={team.teamName}
+                    />
+                    <small className="mobile-table-note">
+                      {formatRecord(team)}
+                    </small>
+                    <small className="mobile-table-note">
+                      PF {formatPoints(team.pointsFor)} ·{" "}
+                      {formatPoints(team.pointsPerGame)} PPG
+                    </small>
+                  </span>
                   <span>{formatRecord(team)}</span>
-                  <span>{formatPoints(team.pointsFor)}</span>
+                  <span className="regular-season-points-cell">
+                    <strong>{formatPoints(team.pointsFor)}</strong>
+                    <small className="mobile-table-note">
+                      {formatPoints(team.pointsPerGame)} PPG
+                    </small>
+                  </span>
                   <span>{formatPoints(team.pointsPerGame)}</span>
                   <span>{formatPoints(team.pointsAgainst)}</span>
                 </div>
