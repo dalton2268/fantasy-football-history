@@ -1776,9 +1776,9 @@ h2 {
   }
 
   .standings-row {
-    grid-template-columns: 150px 58px 54px 62px 36px;
-    gap: 7px;
-    min-width: 390px;
+    grid-template-columns: minmax(100px, 1fr) 52px 48px 52px 50px;
+    gap: 6px;
+    min-width: 0;
     padding: 11px 10px;
     font-size: 0.8rem;
   }
@@ -1790,11 +1790,11 @@ h2 {
   }
 
   .wide-table:has(.standings-row) {
-    overflow-x: auto;
+    overflow-x: hidden;
   }
 
   .standings-row .sortable-heading {
-    gap: 3px;
+    gap: 2px;
   }
 
   .standings-row .sortable-heading span:first-child {
@@ -1837,7 +1837,8 @@ h2 {
     grid-row: 1;
   }
 
-  .standings-row > button:nth-child(3) span:first-child {
+  .standings-row > button:nth-child(4) span:first-child,
+  .standings-row > button:nth-child(4) span:first-child::after {
     font-size: 0;
   }
 
@@ -1851,7 +1852,7 @@ h2 {
   }
 
   .standings-row > button:nth-child(9) span:first-child::after {
-    content: "T";
+    content: "Titles";
     font-size: 0.62rem;
   }
 
