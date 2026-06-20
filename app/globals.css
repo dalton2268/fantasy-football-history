@@ -118,16 +118,22 @@ a {
   position: relative;
 }
 
-.site-nav a {
+.site-nav a,
+.nav-trigger {
   display: block;
   padding: 8px 10px;
   color: var(--muted);
+  background: transparent;
+  border: 0;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 700;
+  font-family: inherit;
+  cursor: default;
 }
 
-.site-nav a:hover {
+.site-nav a:hover,
+.nav-trigger:hover {
   background: rgba(19, 111, 99, 0.1);
   color: var(--accent-dark);
 }
@@ -1636,10 +1642,12 @@ h2 {
     border-bottom: 0;
   }
 
-  .site-nav a {
+  .site-nav a,
+  .nav-trigger {
     padding: 10px;
     color: var(--foreground);
     font-size: 0.95rem;
+    text-align: left;
   }
 
   .nav-dropdown {

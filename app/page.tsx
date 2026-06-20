@@ -24,11 +24,11 @@ const featureCards = [
       "Highest scoring season, best record, weekly high score, lowest week, blowouts, and close calls.",
   },
   {
-    href: "/timeline",
+    href: "/timeline/regular-season",
     eyebrow: "League timeline",
-    title: "Season archive",
+    title: "Regular season finishes",
     description:
-      "A year-by-year snapshot with champion, scoring leader, playoff format, and standings.",
+      "A year-by-year snapshot of where every team stood before the playoff bracket started.",
   },
 ];
 

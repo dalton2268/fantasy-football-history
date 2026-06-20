@@ -3,7 +3,23 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const navItems = [
+type NavChild = {
+  href: string;
+  label: string;
+};
+
+type NavItem =
+  | {
+      href: string;
+      label: string;
+      children?: NavChild[];
+    }
+  | {
+      label: string;
+      children: NavChild[];
+    };
+
+const navItems: NavItem[] = [
   { href: "/", label: "Home" },
   {
     href: "/standings",
@@ -25,10 +41,8 @@ const navItems = [
     ],
   },
   {
-    href: "/timeline",
     label: "Timeline",
     children: [
-      { href: "/timeline", label: "Season Archive" },
       {
         href: "/timeline/regular-season",
         label: "Regular Season Finishes",
@@ -72,10 +86,20 @@ export function SiteHeader() {
         id="primary-navigation"
       >
         {navItems.map((item) => (
-          <div className="nav-item" key={item.href}>
-            <Link href={item.href} onClick={closeMenu}>
-              {item.label}
-            </Link>
+          <div className="nav-item" key={item.label}>
+            {"href" in item ? (
+              <Link href={item.href} onClick={closeMenu}>
+                {item.label}
+              </Link>
+            ) : (
+              <button
+                aria-haspopup="true"
+                className="nav-trigger"
+                type="button"
+              >
+                {item.label}
+              </button>
+            )}
             {item.children ? (
               <div className="nav-dropdown">
                 {item.children.map((child) => (
